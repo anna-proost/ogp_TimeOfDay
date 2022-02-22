@@ -6,23 +6,25 @@ public class TimeOfDay {
 	/**
 	 * Representatie-invarianten:
 	 * 
-	 * @invar tot # minuten is niet kleiner dan 0 en niet groter dan 1439
-	 * 		| 0 <= midnight_minutes && midnight_minutes <= 1439
+	 * @invar # uren is niet groter dan 23 en niet kleiner dan 0
+	 * 		| 0 <= hours && hours <= 23
 	 * 
+	 * @invar # minuten is niet groter dan 59 en niet kleiner dan 0
+	 *		| 0 <= minutes  && minutes <= 59
+	 *		
 	 */
 
-	private int midnight_minutes;
+	private int hours;
+	private int minutes;
 
 	
 	// variabelen oproepen	
 	public int getHours() {
-		int hours = this.midnight_minutes / 60;  //integer !
-		return hours;
+		return this.hours;
 	}
 	
 	public int getMinutes() {
-		int minutes = this.midnight_minutes % 60;  //integer !
-		return minutes;
+		return this.minutes;
 	}
 	
 	
@@ -38,8 +40,7 @@ public class TimeOfDay {
 	
 	// variabelen aanpassen
 	public void setHours(int waarde) {
-		 int tot_minutes = waarde * 60 + (this.midnight_minutes % 60);	
-		 this.midnight_minutes = tot_minutes;
+		this.hours = waarde;
 	}
 	
 	/**
@@ -53,8 +54,7 @@ public class TimeOfDay {
 	 */
 	
 	public void setMinutes(int waarde) {
-		int tot_minutes = waarde + ((this.midnight_minutes / 60) * 60);
-		this.midnight_minutes = tot_minutes;	
+		this.minutes = waarde;
 	}
 	
 	// TimeOfDay initialiseren ...
@@ -65,9 +65,8 @@ public class TimeOfDay {
 	 * @post | getMinutes() == 0
 	 */
 	
-	public TimeOfDay() {
-		this.midnight_minutes = 0;
-	}
+	public TimeOfDay() {}
+	
 	
 	/**
 	 * @throws IllegalArgumentException | 0 > hours || 23 < hours
@@ -81,11 +80,10 @@ public class TimeOfDay {
 			throw new IllegalArgumentException("'hours' is invalid");
 		
 		if(0 > minutes || 59 < minutes) 
-			throw new IllegalArgumentException("'minutes' is invalid");
+			throw new IllegalArgumentException("'minutes' is invalid"))
 		
-		int tot_minutes = minutes + 60 * hours; 
-
-		this.midnight_minutes = tot_minutes;
+		this.minutes = minutes;
+		this.hours = hours;
 	}
 }
 
